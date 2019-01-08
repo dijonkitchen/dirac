@@ -163,6 +163,14 @@ SDK.ConsoleModel = class extends Common.Object {
     if (msg.source === SDK.ConsoleMessage.MessageSource.ConsoleAPI && msg.type === SDK.ConsoleMessage.MessageType.Clear)
       this._clearIfNecessary();
 
+    if (msg.parameters) {
+      var firstParam = msg.parameters[0];
+      if (firstParam && firstParam.value == "~~$DIRAC-MSG$~~") {
+        this.dispatchEventToListeners(SDK.ConsoleModel.Events.DiracMessage, msg);
+        return;
+      }
+    }
+
     this._messages.push(msg);
     const runtimeModel = msg.runtimeModel();
     if (msg._exceptionId && runtimeModel) {
@@ -415,6 +423,7 @@ SDK.ConsoleModel = class extends Common.Object {
 /** @enum {symbol} */
 SDK.ConsoleModel.Events = {
   ConsoleCleared: Symbol('ConsoleCleared'),
+  DiracMessage: Symbol("DiracMessage"),
   MessageAdded: Symbol('MessageAdded'),
   MessageUpdated: Symbol('MessageUpdated'),
   CommandEvaluated: Symbol('CommandEvaluated')
@@ -682,6 +691,8 @@ SDK.ConsoleMessage.MessageType = {
   Result: 'result',
   Profile: 'profile',
   ProfileEnd: 'profileEnd',
+  DiracCommand: "diracCommand",
+  DiracMarkup: "diracMarkup",
   Command: 'command',
   System: 'system',
   QueryObjectResult: 'queryObjectResult'

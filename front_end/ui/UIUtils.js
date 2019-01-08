@@ -1160,6 +1160,9 @@ UI.initializeUIUtils = function(document, themeSetting) {
  * @return {string}
  */
 UI.beautifyFunctionName = function(name) {
+  if (dirac.hasBeautifyFunctionNames) {
+    return dirac.getFunctionName(name);
+  }
   return name || Common.UIString('(anonymous)');
 };
 

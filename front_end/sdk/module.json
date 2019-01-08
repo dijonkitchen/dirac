@@ -3,7 +3,8 @@
         "common",
         "host",
         "platform",
-        "protocol"
+        "protocol",
+        "dirac"
     ],
     "extensions": [
         {
@@ -236,7 +237,7 @@
             "title": "Enable custom formatters",
             "settingName": "customFormatters",
             "settingType": "boolean",
-            "defaultValue": false
+            "defaultValue": true
         },
         {
             "type": "setting",
@@ -326,6 +327,7 @@
         "HeapProfilerModel.js",
         "PerformanceMetricsModel.js",
         "../SupportedCSSProperties.js",
+        "SupportedCSSPropertiesExtensionMode.js",
         "FilmStripModel.js",
         "ConsoleModel.js"
     ],
